@@ -8,13 +8,9 @@ impl Solution {
             let mut inner_count = 0;
             let mut number = num;
             
-            loop {
+            while number != 0 {
                 number /= 10;
                 inner_count += 1;
-                
-                if number == 0 {
-                    break;
-                }
             }
             
             if inner_count % 2 == 0 {
