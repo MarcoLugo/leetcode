@@ -11,25 +11,23 @@
 
 impl Solution {
     pub fn detect_capital_use(word: String) -> bool {
-        let mut count = 0;
-        let mut result = false;
-        
-        for c in word.as_bytes().into_iter() {
-            if Solution::is_capital_letter(*c) {
-                count += 1;
-            }
+        let capital_masks: Vec<_> = word
+            .as_bytes()
+            .into_iter()
+            .map(|&c| Self::is_capital_letter(c))
+            .collect();
+        let capital_count = capital_masks.iter().filter(|&&x| x).count();
+
+        if capital_count == 0 || capital_count == word.len() {
+            true
+        } else if capital_count == 1 && capital_masks[0] {
+            true
+        } else {
+            false
         }
-        
-        if (count == 0) || (count == word.len()) {
-            result = true;
-        } else if (count == 1) && (Solution::is_capital_letter(word.as_bytes()[0])) {
-            result = true;
-        }
-        
-        result
     }
-    
+
     fn is_capital_letter(c: u8) -> bool {
-        (c >= 65) && (c <= 90)
+        c >= 65 && c <= 90
     }
 }
